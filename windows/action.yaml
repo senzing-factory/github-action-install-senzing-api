@@ -6,9 +6,13 @@ author: support@senzing.com
 runs:
   using: composite
   steps:
-    - name: Platform identification
-      run: echo "Running windows/action.yaml"
-      shell: bash
+    - name: Install Senzing API
+      shell: cmd
+      run: |
+        curl --output senzingapi.zip https://public-read-access.s3.amazonaws.com/staging/SenzingAPI_3.7.0.zip
+        7z x -y -o"C:\Program Files" senzingapi.zip
+        ren "C:\Program Files\senzing"  "C:\Program Files\senzing2"
+        ren "C:\Program Files\senzing2" "C:\Program Files\Senzing"
 
 branding:
   icon: download

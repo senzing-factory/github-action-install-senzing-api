@@ -6,16 +6,15 @@ author: support@senzing.com
 runs:
   using: composite
   steps:
-    - name: Platform identification
-      run: echo "Running linux/action.yaml"
-      shell: bash
     - name: Install Senzing APT repository
       shell: bash
       run: |
         wget -qO /tmp/senzingrepo_1.0.1-1_amd64.deb https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_amd64.deb
         sudo apt-get -y install /tmp/senzingrepo_1.0.1-1_amd64.deb
         sudo apt-get update
-    - name: Install Senzing API
+    - env:
+        SENZING_ACCEPT_EULA: I_ACCEPT_THE_SENZING_EULA
+      name: Install Senzing API
       shell: bash
       run: |
         sudo --preserve-env apt-get -y install senzingapi

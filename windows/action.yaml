@@ -17,7 +17,7 @@ runs:
     - name: Rename 1
       shell: cmd
       run: |
-        ren "C:\Program Files\senzing"  "C:\Program Files\senzing2"
+        ren "C:\Program Files\senzing" "C:\Program Files\senzing2"
     - name: Rename 2
       shell: cmd
       run: |

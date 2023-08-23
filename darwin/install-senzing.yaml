@@ -1,0 +1,14 @@
+# install-senzing.yaml
+name: Install Senzing - darwin
+description: Install Senzing API on the darwin/macOS platform.
+author: support@senzing.com
+
+runs:
+  using: composite
+  steps:
+    - name: Platform identification
+      run: echo "Running darwin/install-senzing.yml"
+
+branding:
+  icon: download
+  color: green

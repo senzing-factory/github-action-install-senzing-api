@@ -1,0 +1,14 @@
+# install-senzing.yaml
+name: Install Senzing - windows
+description: Install Senzing API on the windows platform.
+author: support@senzing.com
+
+runs:
+  using: composite
+  steps:
+    - name: Platform identification
+      run: echo "Running windows/install-senzing.yml"
+
+branding:
+  icon: download
+  color: green

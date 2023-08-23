@@ -1,0 +1,14 @@
+# install-senzing.yaml
+name: Install Senzing - linux
+description: Install Senzing API on the linux platform.
+author: support@senzing.com
+
+runs:
+  using: composite
+  steps:
+    - name: Platform identification
+      run: echo "Running linux/install-senzing.yml"
+
+branding:
+  icon: download
+  color: green

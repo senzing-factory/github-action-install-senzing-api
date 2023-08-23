@@ -1,0 +1,21 @@
+# action.yml
+name: Install Senzing
+description: Install Senzing API based on platform.
+author: support@senzing.com
+
+runs:
+  using: composite
+  steps:
+    - if: runner.os == 'Linux'
+      name: Run on Linux
+      uses: Senzing/github-action-install-senzing/linux/install-senzing.yaml@main
+    - if: runner.os == 'macOS'
+      name: Run on macOS
+      uses: Senzing/github-action-install-senzing/darwin/install-senzing.yaml@main
+    - if: runner.os == 'Windows'
+      name: Run on Windows
+      uses: Senzing/github-action-install-senzing/windows/install-senzing.yaml@main
+
+branding:
+  icon: download
+  color: green

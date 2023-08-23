@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [1.1.0] - 2023-08-23
+
+### Added to 1.1.0
+
+- Support for `@latest` tag
+
 ## [1.0.0] - 2023-08-23
 
 ### Added to 1.0.0

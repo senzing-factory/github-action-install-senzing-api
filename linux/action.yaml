@@ -7,8 +7,26 @@ runs:
   using: composite
   steps:
     - name: Platform identification
-      run: echo "Running linux/install-senzing.yml"
+      run: echo "Running linux/action.yaml"
       shell: bash
+    - name: Install Senzing APT repository
+      shell: bash
+      run: |
+        wget -qO /tmp/senzingrepo_1.0.1-1_amd64.deb https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_amd64.deb
+        sudo apt-get -y install /tmp/senzingrepo_1.0.1-1_amd64.deb
+        sudo apt-get update
+    - name: Install Senzing API
+      shell: bash
+      run: |
+        sudo --preserve-env apt-get -y install senzingapi
+        sudo mv /opt/senzing/data/4.0.0/* /opt/senzing/data/
+        sudo mkdir /etc/opt/senzing
+        sudo cp /opt/senzing/g2/resources/templates/cfgVariant.json     /etc/opt/senzing
+        sudo cp /opt/senzing/g2/resources/templates/customGn.txt        /etc/opt/senzing
+        sudo cp /opt/senzing/g2/resources/templates/customOn.txt        /etc/opt/senzing
+        sudo cp /opt/senzing/g2/resources/templates/customSn.txt        /etc/opt/senzing
+        sudo cp /opt/senzing/g2/resources/templates/defaultGNRCP.config /etc/opt/senzing
+        sudo cp /opt/senzing/g2/resources/templates/stb.config          /etc/opt/senzing
 
 branding:
   icon: download

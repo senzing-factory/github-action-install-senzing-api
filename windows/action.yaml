@@ -7,7 +7,7 @@ runs:
   using: composite
   steps:
     - name: Platform identification
-      run: echo "Running windows/install-senzing.yml"
+      run: echo "Running windows/action.yaml"
       shell: bash
 
 branding:

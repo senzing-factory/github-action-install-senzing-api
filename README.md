@@ -1,4 +1,4 @@
-# github-action-make-go-github-file
+# github-action-install-senzing
 
 ## Synopsis
 
@@ -6,14 +6,17 @@ Install Senzing API.
 
 ## Overview
 
-The github action performs a
+The GitHub action performs a
 [system install](https://github.com/Senzing/knowledge-base/blob/main/WHATIS/senzing-system-installation.md)
 of Senzing.
 
+The GitHub action works where the
+[RUNNER_OS](https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables)
+GitHub variable is `Linux`, `macOS`, or `Windows`
+
 ## Usage
 
-1. A `.github/workflows/make-go-github-file.yaml` file
-   that creates a `cmd/github.go` file for "package cmd".
+1. A example `.github/workflows/install-senzing.yaml` file.
    Example:
 
     ```yaml
@@ -30,5 +33,5 @@ of Senzing.
         runs-on: ubuntu-latest
         steps:
           - name: Install Senzing API
-            uses: Senzing/github-action-install-senzing@main
+            uses: Senzing/github-action-install-senzing@latest
     ```

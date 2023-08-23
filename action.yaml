@@ -11,10 +11,10 @@ runs:
       uses: Senzing/github-action-install-senzing/linux@main
     - if: runner.os == 'macOS'
       name: Run on macOS
-      uses: Senzing/github-action-install-senzing/darwin/install-senzing.yaml@main
+      uses: Senzing/github-action-install-senzing/darwin@main
     - if: runner.os == 'Windows'
       name: Run on Windows
-      uses: Senzing/github-action-install-senzing/windows/install-senzing.yaml@main
+      uses: Senzing/github-action-install-senzing/windows@main
 
 branding:
   icon: download

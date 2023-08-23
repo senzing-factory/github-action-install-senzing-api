@@ -8,7 +8,7 @@ runs:
   steps:
     - if: runner.os == 'Linux'
       name: Run on Linux
-      uses: Senzing/github-action-install-senzing/linux/install-senzing.yaml@main
+      uses: Senzing/github-action-install-senzing/linux@main
     - if: runner.os == 'macOS'
       name: Run on macOS
       uses: Senzing/github-action-install-senzing/darwin/install-senzing.yaml@main

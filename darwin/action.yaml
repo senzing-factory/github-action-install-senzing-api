@@ -8,6 +8,7 @@ runs:
   steps:
     - name: Platform identification
       run: echo "Running darwin/install-senzing.yml"
+      shell: bash
 
 branding:
   icon: download

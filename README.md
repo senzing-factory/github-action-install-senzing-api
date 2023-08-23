@@ -2,21 +2,20 @@
 
 ## Synopsis
 
-Install Senzing API in a GitHub Action.
+A GitHub Action for installing the Senzing API.
 
 ## Overview
 
 The GitHub Action performs a
 [system install](https://github.com/Senzing/knowledge-base/blob/main/WHATIS/senzing-system-installation.md)
-of Senzing.
+of the Senzing API.
 The GitHub Action works where the
 [RUNNER_OS](https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables)
 GitHub variable is `Linux`, `macOS`, or `Windows`.
 
 ## Usage
 
-1. A example `.github/workflows/install-senzing-example.yaml` file.
-   Example:
+1. A example `.github/workflows/install-senzing-example.yaml` file:
 
     ```yaml
     name: install-senzing-example.yaml

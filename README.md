@@ -27,5 +27,5 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
         runs-on: ubuntu-latest
         steps:
           - name: Install Senzing API
-            uses: Senzing/github-action-install-senzing-api@latest
+            uses: Senzing/github-action-install-senzing-api@v1
     ```

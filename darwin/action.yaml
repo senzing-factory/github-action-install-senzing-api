@@ -7,7 +7,7 @@ runs:
   using: composite
   steps:
     - name: Platform identification
-      run: echo "Running darwin/install-senzing.yml"
+      run: echo "Running darwin/action.yaml"
       shell: bash
 
 branding:

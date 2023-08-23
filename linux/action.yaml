@@ -1,4 +1,4 @@
-# install-senzing.yaml
+# linux/action.yaml
 name: Install Senzing - linux
 description: Install Senzing API on the linux platform.
 author: support@senzing.com

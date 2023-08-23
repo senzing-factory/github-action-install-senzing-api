@@ -1,4 +1,4 @@
-# install-senzing.yaml
+# darwin/action.yaml
 name: Install Senzing - darwin
 description: Install Senzing API on the darwin/macOS platform.
 author: support@senzing.com
@@ -6,9 +6,13 @@ author: support@senzing.com
 runs:
   using: composite
   steps:
-    - name: Platform identification
-      run: echo "Running darwin/action.yaml"
+    - name: Install Senzing API
       shell: bash
+      run: |
+        curl --output /tmp/senzingapi.dmg https://public-read-access.s3.amazonaws.com/staging/senzingapi_3.7.0.23207.dmg
+        hdiutil attach /tmp/senzingapi.dmg
+        sudo mkdir -p /opt/senzing/
+        sudo cp -R /Volumes/SenzingAPI/senzing/g2 /opt/senzing
 
 branding:
   icon: download

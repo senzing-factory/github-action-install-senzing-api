@@ -14,7 +14,7 @@ runs:
       uses: Senzing/github-action-install-senzing/darwin@latest
     - if: runner.os == 'Windows'
       name: Run on Windows
-      uses: Senzing/github-action-install-senzing/windows@latest
+      uses: Senzing/github-action-install-senzing/windows@main
 
 branding:
   icon: download

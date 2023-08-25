@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [1.1.1] - 2023-08-25
+
+### Added to 1.1.1
+
+- In Windows, run `C:\Program Files\Senzing\g2\redis\vc_redist.x64.exe`
+
 ## [1.1.0] - 2023-08-23
 
 ### Added to 1.1.0

@@ -9,7 +9,7 @@ runs:
     - name: Install Senzing APT repository
       shell: bash
       run: |
-        wget -qO /tmp/senzingrepo_1.0.1-1_amd64.deb https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_amd64.deb
+        wget -qO /tmp/senzingrepo_1.0.1-1_amd64.deb https://senzing-staging-apt.s3.amazonaws.com/senzingstagingrepo_1.0.0-1_amd64.deb
         sudo apt-get -y install /tmp/senzingrepo_1.0.1-1_amd64.deb
         sudo apt-get update
     - env:

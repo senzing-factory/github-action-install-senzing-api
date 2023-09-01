@@ -9,14 +9,10 @@ runs:
     - name: Install Senzing API
       shell: cmd
       run: |
-        curl --output senzingapi.zip https://public-read-access.s3.amazonaws.com/staging/SenzingAPI_3.7.0.zip
+        curl --output senzingapi.zip https://public-read-access.s3.amazonaws.com/staging/SenzingAPI_3.8.0.zip
         7z x -y -o"C:\Program Files" senzingapi.zip
         ren "C:\Program Files\senzing" "senzing2"
         ren "C:\Program Files\senzing2" "Senzing"
-    # - name: Visual C++ Redistributable Silent Install
-    #   shell: cmd
-    #   run: |
-    #     "C:\Program Files\Senzing\g2\redis\vc_redist.x64.exe" "/q" "/norestart"
 
 branding:
   icon: download

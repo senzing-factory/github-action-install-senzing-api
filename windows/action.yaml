@@ -4,7 +4,7 @@ description: Install Senzing API on the windows platform.
 author: support@senzing.com
 
 inputs:
-  senzing-version:
+  senzingapi-version:
     description: Version of Senzing API to install
     required: false
     default: latest
@@ -14,13 +14,13 @@ runs:
   steps:
     # Download production or staging.
 
-    - if: inputs.senzing-version != 'staging'
+    - if: inputs.senzingapi-version != 'staging'
       name: Download Senzing API
       shell: cmd
       run: |
         curl --output senzingapi.zip https://public-read-access.s3.amazonaws.com/staging/SenzingAPI_3.7.0.zip
 
-    - if: inputs.senzing-version == 'staging'
+    - if: inputs.senzingapi-version == 'staging'
       name: Download staging Senzing API
       shell: cmd
       run: |

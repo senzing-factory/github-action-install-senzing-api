@@ -3,18 +3,30 @@ name: Install Senzing
 description: Install Senzing API based on platform.
 author: support@senzing.com
 
+inputs:
+  senzing-version:
+    description: Version of Senzing API to install
+    required: false
+    default: latest
+
 runs:
   using: composite
   steps:
     - if: runner.os == 'Linux'
       name: Run on Linux
-      uses: Senzing/github-action-install-senzing/linux@latest
+      uses: Senzing/github-action-install-senzing/linux@main
+      with:
+        senzing-version: ${{ inputs.senzing-version }}
     - if: runner.os == 'macOS'
       name: Run on macOS
-      uses: Senzing/github-action-install-senzing/darwin@latest
+      uses: Senzing/github-action-install-senzing/darwin@main
+      with:
+        senzing-version: ${{ inputs.senzing-version }}
     - if: runner.os == 'Windows'
       name: Run on Windows
-      uses: Senzing/github-action-install-senzing/windows@latest
+      uses: Senzing/github-action-install-senzing/windows@main
+      with:
+        senzing-version: ${{ inputs.senzing-version }}
 
 branding:
   icon: download

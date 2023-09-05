@@ -3,21 +3,58 @@ name: Install Senzing - linux
 description: Install Senzing API on the linux platform.
 author: support@senzing.com
 
+inputs:
+  senzing-version:
+    description: Version of Senzing API to install
+    required: false
+    default: latest
+
 runs:
   using: composite
   steps:
+    # Download production or staging APT repository.
+
+    - if: inputs.senzing-version != 'staging'
+      name: Download Senzing repository metadata
+      shell: bash
+      run: |
+        wget -qO /tmp/senzingrepo.deb https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_amd64.deb
+
+    - if: inputs.senzing-version == 'staging'
+      name: Download Senzing staging repository metadata
+      shell: bash
+      run: |
+        wget -qO /tmp/senzingrepo.deb https://senzing-staging-apt.s3.amazonaws.com/senzingstagingrepo_1.0.0-1_amd64.deb
+
+    # Install repository metadata.
+
     - name: Install Senzing APT repository
       shell: bash
       run: |
-        wget -qO /tmp/senzingrepo_1.0.1-1_amd64.deb https://senzing-staging-apt.s3.amazonaws.com/senzingstagingrepo_1.0.0-1_amd64.deb
-        sudo apt-get -y install /tmp/senzingrepo_1.0.1-1_amd64.deb
+        sudo apt-get -y install /tmp/senzingrepo.deb
         sudo apt-get update
+
+    # Install "latest" or versioned release.
+
     - env:
         SENZING_ACCEPT_EULA: I_ACCEPT_THE_SENZING_EULA
+      if: ${{ inputs.senzing-version == 'latest' || inputs.senzing-version == 'staging' }}
       name: Install Senzing API
       shell: bash
+      run: sudo --preserve-env apt-get -y install senzingapi
+
+    - env:
+        SENZING_ACCEPT_EULA: I_ACCEPT_THE_SENZING_EULA
+      if: ${{ inputs.senzing-version != 'latest' && inputs.senzing-version != 'staging' }}
+      name: Install versioned Senzing API
+      shell: bash
+      run: sudo --preserve-env apt-get -y install senzingapi=${{ inputs.senzing-version }}
+
+    # Adjust files for "system install".
+
+    - name: Configure Senzing API
+      shell: bash
       run: |
-        sudo --preserve-env apt-get -y install senzingapi
         sudo mv /opt/senzing/data/4.0.0/* /opt/senzing/data/
         sudo mkdir /etc/opt/senzing
         sudo cp /opt/senzing/g2/resources/templates/cfgVariant.json     /etc/opt/senzing
@@ -26,6 +63,12 @@ runs:
         sudo cp /opt/senzing/g2/resources/templates/customSn.txt        /etc/opt/senzing
         sudo cp /opt/senzing/g2/resources/templates/defaultGNRCP.config /etc/opt/senzing
         sudo cp /opt/senzing/g2/resources/templates/stb.config          /etc/opt/senzing
+
+    # Verify installation.
+
+    - name: Verify installed Senzing API version
+      shell: bash
+      run: cat /opt/senzing/g2/g2BuildVersion.json
 
 branding:
   icon: download

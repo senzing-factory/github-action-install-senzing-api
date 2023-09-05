@@ -39,7 +39,7 @@ runs:
 
     - name: Verify installed Senzing API version
       shell: bash
-      run: cat /opt/senzing/g2/g2BuildVersion.json
+      run: cat "/c/Program Files\senzing\g2\g2BuildVersion.json"
 
 branding:
   icon: download

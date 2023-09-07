@@ -15,7 +15,8 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
 
 ## Usage
 
-1. A example `.github/workflows/install-senzing-example.yaml` file:
+1. An example `.github/workflows/install-senzing-example.yaml` file
+   which installs the latest Senzing API:
 
     ```yaml
     name: install-senzing-example.yaml
@@ -29,3 +30,23 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
           - name: Install Senzing API
             uses: Senzing/github-action-install-senzing-api@latest
     ```
+
+1. An example `.github/workflows/install-senzing-example.yaml` file
+   which installs a specific Senzing API verson:
+
+    ```yaml
+    name: install-senzing-example.yaml
+
+    on: [push]
+
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Install Senzing API
+            uses: Senzing/github-action-install-senzing-api@latest
+            with:
+              senzingapi-version: 3.6.0-23160
+    ```
+
+   If `senzingapi-version` is not specified, the default is "latest".

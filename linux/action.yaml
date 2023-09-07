@@ -14,17 +14,15 @@ runs:
   steps:
     # Download production or staging APT repository.
 
-    - if: inputs.senzingapi-version != 'staging'
-      name: Download Senzing repository metadata
-      shell: bash
-      run: |
-        wget -qO /tmp/senzingrepo.deb https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_amd64.deb
-
     - if: inputs.senzingapi-version == 'staging'
       name: Download Senzing staging repository metadata
       shell: bash
-      run: |
-        wget -qO /tmp/senzingrepo.deb https://senzing-staging-apt.s3.amazonaws.com/senzingstagingrepo_1.0.0-1_amd64.deb
+      run: wget -qO /tmp/senzingrepo.deb https://senzing-staging-apt.s3.amazonaws.com/senzingstagingrepo_1.0.0-1_amd64.deb
+
+    - if: inputs.senzingapi-version != 'staging'
+      name: Download Senzing repository metadata
+      shell: bash
+      run: wget -qO /tmp/senzingrepo.deb https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_amd64.deb
 
     # Install repository metadata.
 

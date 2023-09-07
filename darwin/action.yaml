@@ -19,14 +19,14 @@ runs:
         SENZINGAPI_STAGING_URL: https://public-read-access.s3.amazonaws.com/staging/senzingapi_3.8.0.dmg
       name: Download staging Senzing API
       shell: bash
-      run: curl --output /tmp/senzingapi.dmg ${SENZINGAPI_STAGING_URL}
+      run: curl --output /tmp/senzingapi.dmg $SENZINGAPI_STAGING_URL
 
     - if: inputs.senzingapi-version != 'staging'
       env:
         SENZINGAPI_LATEST_URL: https://public-read-access.s3.amazonaws.com/staging/senzingapi_3.7.0.23207.dmg
       name: Download Senzing API
       shell: bash
-      run: curl --output /tmp/senzingapi.dmg ${SENZINGAPI_LATEST_URL}
+      run: curl --output /tmp/senzingapi.dmg $SENZINGAPI_LATEST_URL
 
     # Install Senzing API.
 

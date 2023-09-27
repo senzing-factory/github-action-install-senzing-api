@@ -32,18 +32,18 @@ runs:
         sudo apt-get -y install /tmp/senzingrepo.deb
         sudo apt-get update
 
-    # Install "latest" or versioned release.
+    # Install staging, latest or versioned release.
 
-    - env:
+    - if: ${{ inputs.senzingapi-version == 'staging' || inputs.senzingapi-version == 'latest' }}
+      env:
         SENZING_ACCEPT_EULA: I_ACCEPT_THE_SENZING_EULA
-      if: ${{ inputs.senzingapi-version == 'latest' || inputs.senzingapi-version == 'staging' }}
       name: Install Senzing API
       shell: bash
       run: sudo --preserve-env apt-get -y install senzingapi
 
-    - env:
+    - if: ${{ inputs.senzingapi-version != 'staging' && inputs.senzingapi-version != 'latest' }}
+      env:
         SENZING_ACCEPT_EULA: I_ACCEPT_THE_SENZING_EULA
-      if: ${{ inputs.senzingapi-version != 'latest' && inputs.senzingapi-version != 'staging' }}
       name: Install versioned Senzing API
       shell: bash
       run: sudo --preserve-env apt-get -y install senzingapi=${{ inputs.senzingapi-version }}

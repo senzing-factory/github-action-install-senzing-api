@@ -12,19 +12,26 @@ inputs:
 runs:
   using: composite
   steps:
-    # Download production or staging.
+    # Download staging, latest, or versioned image.
 
     - if: inputs.senzingapi-version == 'staging'
       env:
-        SENZINGAPI_STAGING_URL: https://public-read-access.s3.amazonaws.com/staging/senzingapi_3.8.0.dmg
+        SENZINGAPI_STAGING_URL: https://public-read-access.s3.amazonaws.com/staging/Senzing_staging.dmg
       name: Download staging Senzing API
       shell: bash
       run: curl --output /tmp/senzingapi.dmg $SENZINGAPI_STAGING_URL
 
-    - if: inputs.senzingapi-version != 'staging'
+    - if: inputs.senzingapi-version == 'latest'
       env:
-        SENZINGAPI_LATEST_URL: https://public-read-access.s3.amazonaws.com/staging/senzingapi_3.7.0.23207.dmg
+        SENZINGAPI_LATEST_URL: https://public-read-access.s3.amazonaws.com/staging/Senzing_latest.dmg
       name: Download Senzing API
+      shell: bash
+      run: curl --output /tmp/senzingapi.dmg $SENZINGAPI_LATEST_URL
+
+    - if: ${{ inputs.senzingapi-version != 'latest' && inputs.senzingapi-version != 'staging' }}
+      env:
+        SENZINGAPI_LATEST_URL: https://public-read-access.s3.amazonaws.com/staging/Senzing_latest.dmg
+      name: Download versioned Senzing API
       shell: bash
       run: curl --output /tmp/senzingapi.dmg $SENZINGAPI_LATEST_URL
 

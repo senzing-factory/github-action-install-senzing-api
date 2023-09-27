@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [1.2.2] - 2023-09-27
+
+### Changed in 1.2.2
+
+- Updated URLs to Senzing artifacts
+
 ## [1.2.1] - 2023-09-07
 
 ### Added to 1.2.1

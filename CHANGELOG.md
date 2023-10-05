@@ -10,11 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
-## [1.2.3] - 2023-10-03
+## [1.2.3] - 2023-10-05
 
 ### Changed in 1.2.3
 
 - Updated `apt` staging URL to `https://senzing-staging-apt.s3.amazonaws.com/senzingstagingrepo_1.0.1-1_all.deb`
+- Updated `apt` production URL to `https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_all.deb`
 
 ## [1.2.2] - 2023-09-27
 

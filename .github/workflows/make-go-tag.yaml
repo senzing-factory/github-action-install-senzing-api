@@ -1,9 +1,12 @@
-name: make-go-tag.yaml
+name: 'make go tag'
 
 on:
   push:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+"
+
+permissions:
+  contents: write
 
 jobs:
   make-go-tag:
@@ -12,7 +15,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: "0"
+
       - name: Make go version tag
-        uses: Senzing/github-action-make-go-tag@main
+        uses: senzing-factory/github-action-make-go-tag@v1

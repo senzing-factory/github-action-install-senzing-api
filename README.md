@@ -54,9 +54,10 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
 ### senzingapi-version
 
 `senzingapi-version` values can include the following:
+
 - `production-v<MAJOR_VERSION>`
   - Ex. `production-v3`
-  - This will install the latest version of the respective major version from *production*. 
+  - This will install the latest version of the respective major version from *production*.
 - `staging-v<MAJOR_VERSION>`
   - Ex. `staging-v3`
   - This will install the latest version of the respective major version from *staging*.

@@ -41,7 +41,7 @@ determine-latest-zip-for-major-version() {
   echo "[INFO] major version is: $major_version"
 
   aws s3 ls $SENZINGAPI_URI --recursive --no-sign-request | grep -o -E '[^ ]+$' > /tmp/staging-versions
-  latest_staging_version=$(cat /tmp/staging-versions | grep _$major_version | sort -r | head -n 1 | awk -F'/' ' { print $NF } ')
+  latest_staging_version=$(< /tmp/staging-versions grep "_$major_version" | sort -r | head -n 1 | awk -F'/' ' { print $NF } ')
   rm /tmp/staging-versions
   echo "[INFO] latest staging version is: $latest_staging_version"
 
@@ -57,7 +57,7 @@ determine-latest-zip-for-major-version() {
 download-zip() {
 
   echo "[INFO] curl --output senzingapi.zip $SENZINGAPI_ZIP_URL"
-  curl --output /tmp/senzingapi.zip $SENZINGAPI_ZIP_URL
+  curl --output /tmp/senzingapi.zip "$SENZINGAPI_ZIP_URL"
 
 }
 

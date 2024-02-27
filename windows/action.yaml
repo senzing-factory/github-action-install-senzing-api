@@ -6,34 +6,19 @@ author: support@senzing.com
 inputs:
   senzingapi-version:
     description: Version of Senzing API to install
-    required: false
-    default: latest
+    required: true
 
 runs:
   using: composite
   steps:
-    # Download staging, latest, or versioned image.
 
-    - if: inputs.senzingapi-version == 'staging'
-      env:
-        SENZINGAPI_STAGING_URL: https://public-read-access.s3.amazonaws.com/staging/SenzingAPI_staging.zip
-      name: Download staging Senzing API
-      shell: cmd
-      run: curl --output senzingapi.zip %SENZINGAPI_STAGING_URL%
+    # Download latest staging or production image.
 
-    - if: inputs.senzingapi-version == 'latest'
-      env:
-        SENZINGAPI_LATEST_URL: https://public-read-access.s3.amazonaws.com/staging/SenzingAPI_latest.zip
-      name: Download Senzing API
-      shell: cmd
-      run: curl --output senzingapi.zip %SENZINGAPI_LATEST_URL%
-
-    - if: ${{ inputs.senzingapi-version != 'latest' && inputs.senzingapi-version != 'staging' }}
-      env:
-        SENZINGAPI_LATEST_URL: https://public-read-access.s3.amazonaws.com/staging/SenzingAPI_latest.zip
-      name: Download versioned Senzing API
-      shell: cmd
-      run: curl --output senzingapi.zip %SENZINGAPI_LATEST_URL%
+    - env:
+        SENZING_INSTALL_VERSION: ${{ inputs.senzingapi-version }}
+      name: Install Senzing API
+      shell: bash
+      run: ${{ github.action_path }}/windows/download-senzing.sh
 
     # Install Senzing API.
 

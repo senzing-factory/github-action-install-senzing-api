@@ -1,4 +1,3 @@
-# linux/action.yaml
 name: Install Senzing - linux
 description: Install Senzing API on the linux platform.
 author: support@senzing.com
@@ -12,41 +11,15 @@ inputs:
 runs:
   using: composite
   steps:
-    # Download production or staging APT repository.
 
-    - if: inputs.senzingapi-version == 'staging'
-      name: Download Senzing staging repository metadata
-      shell: bash
-      run: wget -qO /tmp/senzingrepo.deb https://senzing-staging-apt.s3.amazonaws.com/senzingstagingrepo_1.0.1-1_all.deb
+    # Install staging, production or versioned release.
 
-    - if: inputs.senzingapi-version != 'staging'
-      name: Download Senzing repository metadata
-      shell: bash
-      run: wget -qO /tmp/senzingrepo.deb https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_all.deb
-
-    # Install repository metadata.
-
-    - name: Install Senzing APT repository
-      shell: bash
-      run: |
-        sudo apt-get -y install /tmp/senzingrepo.deb
-        sudo apt-get update
-
-    # Install staging, latest or versioned release.
-
-    - if: ${{ inputs.senzingapi-version == 'staging' || inputs.senzingapi-version == 'latest' }}
-      env:
+    - env:
         SENZING_ACCEPT_EULA: I_ACCEPT_THE_SENZING_EULA
+        SENZING_INSTALL_VERSION: ${{ inputs.senzingapi-version }}
       name: Install Senzing API
       shell: bash
-      run: sudo --preserve-env apt-get -y install senzingapi
-
-    - if: ${{ inputs.senzingapi-version != 'staging' && inputs.senzingapi-version != 'latest' }}
-      env:
-        SENZING_ACCEPT_EULA: I_ACCEPT_THE_SENZING_EULA
-      name: Install versioned Senzing API
-      shell: bash
-      run: sudo --preserve-env apt-get -y install senzingapi=${{ inputs.senzingapi-version }}
+      run: ${{ github.action_path }}/linux/install-senzing.sh
 
     # Adjust files for "system install".
 

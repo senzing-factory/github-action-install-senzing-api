@@ -5,27 +5,26 @@ author: support@senzing.com
 inputs:
   senzingapi-version:
     description: Version of Senzing API to install
-    required: false
-    default: latest
+    required: true
 
 runs:
   using: composite
   steps:
     - if: runner.os == 'Linux'
       name: Run on Linux
-      uses: Senzing/github-action-install-senzing/linux@latest
+      uses: senzing-factory/github-action-install-senzing/linux@"#52-skern"
       with:
         senzingapi-version: ${{ inputs.senzingapi-version }}
 
     - if: runner.os == 'macOS'
       name: Run on macOS
-      uses: Senzing/github-action-install-senzing/darwin@latest
+      uses: senzing-factory/github-action-install-senzing/darwin@"#52-skern"
       with:
         senzingapi-version: ${{ inputs.senzingapi-version }}
 
     - if: runner.os == 'Windows'
       name: Run on Windows
-      uses: Senzing/github-action-install-senzing/windows@latest
+      uses: senzing-factory/github-action-install-senzing/windows@"#52-skern"
       with:
         senzingapi-version: ${{ inputs.senzingapi-version }}
 

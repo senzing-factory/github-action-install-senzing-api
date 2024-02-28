@@ -24,6 +24,7 @@ runs:
     - name: Install Senzing API
       shell: bash
       run: |
+        ls -tlc /tmp/
         hdiutil attach /tmp/senzingapi.dmg
         sudo mkdir -p /opt/senzing/
         sudo cp -R /Volumes/SenzingAPI/senzing/g2 /opt/senzing

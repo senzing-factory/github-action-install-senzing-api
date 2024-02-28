@@ -41,7 +41,7 @@ determine-latest-dmg-for-major-version() {
   echo "[INFO] major version is: $major_version"
 
   aws s3 ls $SENZINGAPI_URI --recursive --no-sign-request | grep -o -E '[^ ]+.dmg$' > /tmp/staging-versions
-  latest_staging_version=$(< /tmp/staging-versions grep "_$major_version" | sort -r | head -n 1 | awk -F'/' ' { print $NF } ')
+  latest_staging_version=$(< /tmp/staging-versions grep "_$major_version" | sort -r | head -n 1 | grep -o '/.*')
   rm /tmp/staging-versions
   echo "[INFO] latest staging version is: $latest_staging_version"
 

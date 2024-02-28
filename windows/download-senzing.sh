@@ -40,7 +40,7 @@ determine-latest-zip-for-major-version() {
   major_version=$(echo "$SENZING_INSTALL_VERSION" | grep -Eo '[0-9]+$')
   echo "[INFO] major version is: $major_version"
 
-  aws s3 ls $SENZINGAPI_URI --recursive --no-sign-request --region us-east-1 | grep -o -E '[^ ]+.msi$' > /tmp/staging-versions
+  aws s3 ls $SENZINGAPI_URI --recursive --no-sign-request --region us-east-1 | grep -o -E '[^ ]+.zip$' > /tmp/staging-versions
   latest_staging_version=$(< /tmp/staging-versions grep "_$major_version" | sort -r | head -n 1 | grep -o '/.*')
   rm /tmp/staging-versions
   echo "[INFO] latest staging version is: $latest_staging_version"

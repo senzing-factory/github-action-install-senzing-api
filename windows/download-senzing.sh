@@ -58,8 +58,6 @@ download-zip() {
 
   echo "[INFO] curl --output senzingapi.zip $SENZINGAPI_ZIP_URL"
   curl --output senzingapi.zip "$SENZINGAPI_ZIP_URL"
-  pwd
-  ls -tlc
 
 }
 

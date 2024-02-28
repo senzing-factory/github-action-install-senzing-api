@@ -18,7 +18,7 @@ runs:
         SENZING_INSTALL_VERSION: ${{ inputs.senzingapi-version }}
       name: Install Senzing API
       shell: bash
-      run: ${{ github.action_path }}/download-senzing.sh
+      run: $GITHUB_ACTION_PATH/download-senzing.sh
 
     # Install Senzing API.
 

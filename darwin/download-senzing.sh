@@ -58,7 +58,7 @@ download-dmg() {
 
   echo "[INFO] curl --output /tmp/senzingapi.dmg $SENZINGAPI_DMG_URL"
   curl --output /tmp/senzingapi.dmg "$SENZINGAPI_DMG_URL"
-  ls -tlc /tmp
+  ls -tlc /tmp/
 
 }
 

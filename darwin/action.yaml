@@ -1,4 +1,3 @@
-# darwin/action.yaml
 name: Install Senzing - darwin
 description: Install Senzing API on the darwin/macOS platform.
 author: support@senzing.com
@@ -6,40 +5,26 @@ author: support@senzing.com
 inputs:
   senzingapi-version:
     description: Version of Senzing API to install
-    required: false
-    default: latest
+    required: true
 
 runs:
   using: composite
   steps:
-    # Download staging, latest, or versioned image.
 
-    - if: inputs.senzingapi-version == 'staging'
-      env:
-        SENZINGAPI_STAGING_URL: https://public-read-access.s3.amazonaws.com/staging/senzingapi_staging.dmg
-      name: Download staging Senzing API
-      shell: bash
-      run: curl --output /tmp/senzingapi.dmg $SENZINGAPI_STAGING_URL
+    # Download latest staging or production image.
 
-    - if: inputs.senzingapi-version == 'latest'
-      env:
-        SENZINGAPI_LATEST_URL: https://public-read-access.s3.amazonaws.com/staging/senzingapi_latest.dmg
-      name: Download Senzing API
+    - env:
+        SENZING_INSTALL_VERSION: ${{ inputs.senzingapi-version }}
+      name: Install Senzing API
       shell: bash
-      run: curl --output /tmp/senzingapi.dmg $SENZINGAPI_LATEST_URL
-
-    - if: ${{ inputs.senzingapi-version != 'latest' && inputs.senzingapi-version != 'staging' }}
-      env:
-        SENZINGAPI_LATEST_URL: https://public-read-access.s3.amazonaws.com/staging/senzingapi_latest.dmg
-      name: Download versioned Senzing API
-      shell: bash
-      run: curl --output /tmp/senzingapi.dmg $SENZINGAPI_LATEST_URL
+      run: ${{ github.action_path }}/download-senzing.sh
 
     # Install Senzing API.
 
     - name: Install Senzing API
       shell: bash
       run: |
+        ls -tlc /tmp/
         hdiutil attach /tmp/senzingapi.dmg
         sudo mkdir -p /opt/senzing/
         sudo cp -R /Volumes/SenzingAPI/senzing/g2 /opt/senzing

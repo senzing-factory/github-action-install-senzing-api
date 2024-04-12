@@ -10,6 +10,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [3.0.0] - 2024-04-12
+
+### Changed in 3.0.0
+
+- Switch linux install package from `senzingapi` to `senzingapi-runtime`.
+
+## [2.0.0] - 2024-02-28
+
+### Changed in 2.0.0
+
+- Add support for all versions of `senzingapi`. 
+- Switch `latest` to `production`. 
+- Require major version specification.
+
 ## [1.2.3] - 2023-10-05
 
 ### Changed in 1.2.3

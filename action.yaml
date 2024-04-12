@@ -1,9 +1,9 @@
-name: Install Senzing API
-description: Install Senzing API based on platform.
+name: Install Senzing API Runtime
+description: Install Senzing API Runtime based on platform.
 author: support@senzing.com
 
 inputs:
-  senzingapi-version:
+  senzingapi-runtime-version:
     description: Version of Senzing API to install
     required: true
 
@@ -12,19 +12,19 @@ runs:
   steps:
     - if: runner.os == 'Linux'
       name: Run on Linux
-      uses: senzing-factory/github-action-install-senzing-api/linux@v2
+      uses: senzing-factory/github-action-install-senzing-api/linux@v3
       with:
-        senzingapi-version: ${{ inputs.senzingapi-version }}
+        senzingapi-runtime-version: ${{ inputs.senzingapi-runtime-version }}
 
     - if: runner.os == 'macOS'
       name: Run on macOS
-      uses: senzing-factory/github-action-install-senzing-api/darwin@v2
+      uses: senzing-factory/github-action-install-senzing-api/darwin@v3
       with:
         senzingapi-version: ${{ inputs.senzingapi-version }}
 
     - if: runner.os == 'Windows'
       name: Run on Windows
-      uses: senzing-factory/github-action-install-senzing-api/windows@v2
+      uses: senzing-factory/github-action-install-senzing-api/windows@v3
       with:
         senzingapi-version: ${{ inputs.senzingapi-version }}
 

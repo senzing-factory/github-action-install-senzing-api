@@ -21,32 +21,32 @@ configure-vars() {
 
   if [[ $SENZING_INSTALL_VERSION =~ "production" ]]; then
 
-    echo "[INFO] install senzingapi from production"
+    echo "[INFO] install senzingapi-runtime from production"
     INSTALL_REPO="$PROD_REPO"
-    SENZING_PACKAGE="senzingapi"
+    SENZING_PACKAGE="senzingapi-runtime"
     restrict-major-version
 
   elif [[ $SENZING_INSTALL_VERSION =~ "staging" ]]; then
 
-    echo "[INFO] install senzingapi from staging"
+    echo "[INFO] install senzingapi-runtime from staging"
     INSTALL_REPO="$STAGING_REPO"
-    SENZING_PACKAGE="senzingapi"
+    SENZING_PACKAGE="senzingapi-runtime"
     restrict-major-version
 
   elif [[ $SENZING_INSTALL_VERSION =~ $REGEX_SEM_VER ]]; then
   
-    echo "[INFO] install senzingapi semantic version"
+    echo "[INFO] install senzingapi-runtime semantic version"
     INSTALL_REPO="$PROD_REPO"
-    SENZING_PACKAGE="senzingapi=$SENZING_INSTALL_VERSION*"
+    SENZING_PACKAGE="senzingapi-runtime=$SENZING_INSTALL_VERSION*"
 
   elif [[ $SENZING_INSTALL_VERSION =~ $REGEX_SEM_VER_BUILD_NUM ]]; then
 
-    echo "[INFO] install senzingapi semantic version with build number"
+    echo "[INFO] install senzingapi-runtime semantic version with build number"
     INSTALL_REPO="$PROD_REPO"
-    SENZING_PACKAGE="senzingapi=$SENZING_INSTALL_VERSION"
+    SENZING_PACKAGE="senzingapi-runtime=$SENZING_INSTALL_VERSION"
 
   else
-    echo "[ERROR] senzingapi install version $SENZING_INSTALL_VERSION is unsupported"
+    echo "[ERROR] senzingapi-runtime install version $SENZING_INSTALL_VERSION is unsupported"
     exit 1
   fi
 
@@ -62,12 +62,12 @@ configure-vars() {
 restrict-major-version() {
 
   MAJOR_VERSION=$(echo "$SENZING_INSTALL_VERSION" | grep -Eo '[0-9]+$')
-  senzingapi_preferences_file="/etc/apt/preferences.d/senzingapi"
-  echo "[INFO] restrict senzingapi major version to: $MAJOR_VERSION"
+  senzingapi_runtime_preferences_file="/etc/apt/preferences.d/senzingapi-runtime"
+  echo "[INFO] restrict senzingapi-runtime major version to: $MAJOR_VERSION"
 
-  echo "Package: senzingapi" | sudo tee -a $senzingapi_preferences_file
-  echo "Pin: version $MAJOR_VERSION.*" | sudo tee -a $senzingapi_preferences_file
-  echo "Pin-Priority: 999" | sudo tee -a $senzingapi_preferences_file
+  echo "Package: senzingapi-runtime" | sudo tee -a $senzingapi_runtime_preferences_file
+  echo "Pin: version $MAJOR_VERSION.*" | sudo tee -a $senzingapi_runtime_preferences_file
+  echo "Pin-Priority: 999" | sudo tee -a $senzingapi_runtime_preferences_file
 
 }
 
@@ -94,7 +94,7 @@ install-senzing-repository() {
 #   SENZING_PACKAGE
 #     full package name used for install
 ############################################
-install-senzingapi() {
+install-senzingapi-runtime() {
 
   echo "[INFO] sudo --preserve-env apt-get -y install $SENZING_PACKAGE"
   sudo --preserve-env apt-get -y install "$SENZING_PACKAGE"
@@ -108,4 +108,4 @@ install-senzingapi() {
 echo "[INFO] senzing version to install is: $SENZING_INSTALL_VERSION"
 configure-vars
 install-senzing-repository
-install-senzingapi
+install-senzingapi-runtime

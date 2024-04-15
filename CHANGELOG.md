@@ -20,8 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed in 2.0.0
 
-- Add support for all versions of `senzingapi`. 
-- Switch `latest` to `production`. 
+- Add support for all versions of `senzingapi`.
+- Switch `latest` to `production`.
 - Require major version specification.
 
 ## [1.2.3] - 2023-10-05

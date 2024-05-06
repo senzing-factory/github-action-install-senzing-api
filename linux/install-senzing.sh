@@ -44,7 +44,6 @@ configure-vars() {
     echo "[INFO] install senzingapi-runtime semantic version"
     get-semantic-major-version
     is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
-    INSTALL_REPO="$PROD_REPO"
     SENZING_PACKAGE="senzingapi-runtime=$SENZING_INSTALL_VERSION*"
 
   elif [[ $SENZING_INSTALL_VERSION =~ $REGEX_SEM_VER_BUILD_NUM ]]; then
@@ -52,7 +51,6 @@ configure-vars() {
     echo "[INFO] install senzingapi-runtime semantic version with build number"
     get-semantic-major-version
     is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
-    INSTALL_REPO="$PROD_REPO"
     SENZING_PACKAGE="senzingapi-runtime=$SENZING_INSTALL_VERSION"
 
   else

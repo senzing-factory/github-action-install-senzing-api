@@ -90,6 +90,7 @@ is-major-version-greater-than-3() {
 get-generic-major-version(){
 
   MAJOR_VERSION=$(echo "$SENZING_INSTALL_VERSION" | grep -Eo '[0-9]+$')
+  echo "[INFO] major version is: $MAJOR_VERSION"
   export MAJOR_VERSION
 
 }
@@ -105,6 +106,7 @@ get-generic-major-version(){
 get-semantic-major-version(){
 
   MAJOR_VERSION=$(echo ${SENZING_INSTALL_VERSION%%.*})
+  echo "[INFO] major version is: $MAJOR_VERSION"
   export MAJOR_VERSION
 
 }

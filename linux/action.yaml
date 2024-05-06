@@ -3,10 +3,9 @@ description: Install Senzing API Runtime on the linux platform.
 author: support@senzing.com
 
 inputs:
-  senzingapi-version:
+  senzingapi-runtime-version:
     description: Version of Senzing API Runtime to install
-    required: false
-    default: latest
+    required: true
 
 runs:
   using: composite

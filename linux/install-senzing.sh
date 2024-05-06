@@ -105,7 +105,7 @@ get-generic-major-version(){
 ############################################
 get-semantic-major-version(){
 
-  MAJOR_VERSION=$(${SENZING_INSTALL_VERSION%%.*})
+  MAJOR_VERSION=${SENZING_INSTALL_VERSION%%.*}
   echo "[INFO] major version is: $MAJOR_VERSION"
   export MAJOR_VERSION
 

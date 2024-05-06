@@ -73,9 +73,9 @@ configure-vars() {
 is-major-version-greater-than-3() {
 
   if [[ $MAJOR_VERSION -gt 3 ]]; then
-    return true
+    return 0
   else
-    return false
+    return 1
   fi
 
 }
@@ -105,7 +105,7 @@ get-generic-major-version(){
 ############################################
 get-semantic-major-version(){
 
-  MAJOR_VERSION=$(echo ${SENZING_INSTALL_VERSION%%.*})
+  MAJOR_VERSION=$(${SENZING_INSTALL_VERSION%%.*})
   echo "[INFO] major version is: $MAJOR_VERSION"
   export MAJOR_VERSION
 
@@ -139,7 +139,7 @@ restrict-major-version() {
 install-senzing-repository() {
 
   echo "[INFO] wget -qO /tmp/senzingrepo.deb $INSTALL_REPO"
-  wget -qO /tmp/senzingrepo.deb $INSTALL_REPO
+  wget -qO /tmp/senzingrepo.deb "$INSTALL_REPO"
   echo "[INFO] sudo apt-get -y install /tmp/senzingrepo.deb"
   sudo apt-get -y install /tmp/senzingrepo.deb
   echo "[INFO] sudo apt-get update"

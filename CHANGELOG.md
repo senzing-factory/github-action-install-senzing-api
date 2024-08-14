@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [3.0.1] - 2024-08-14
+
+### Changed in 3.0.1
+
+- Change references of `g2` to `sz` for file name prefixes and `er` for directory names.
+
 ## [3.0.0] - 2024-04-12
 
 ### Changed in 3.0.0

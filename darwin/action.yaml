@@ -27,13 +27,13 @@ runs:
         ls -tlc /tmp/
         hdiutil attach /tmp/senzingapi.dmg
         sudo mkdir -p /opt/senzing/
-        sudo cp -R /Volumes/SenzingAPI/senzing/g2 /opt/senzing
+        sudo cp -R /Volumes/SenzingAPI/senzing/er /opt/senzing
 
     # Verify installation.
 
     - name: Verify installed Senzing API version
       shell: bash
-      run: cat /opt/senzing/g2/g2BuildVersion.json
+      run: cat /opt/senzing/er/szBuildVersion.json
 
 branding:
   icon: download

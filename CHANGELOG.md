@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning].
 
 -
 
+## [3.0.2] - 2024-08-20
+
+### Changed in 3.0.2
+
+- Backwards compatibility for versions < 4.
+
 ## [3.0.1] - 2024-08-14
 
 ### Changed in 3.0.1

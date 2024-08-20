@@ -167,12 +167,12 @@ install-senzingapi-runtime() {
 verify-installation() {
 
   echo "[INFO] verify senzing installation"
-  is-major-version-greater-than-3 && BUILD_VERSION_PATH="g2/g2BuildVersion" || BUILD_VERSION_PATH="er/szBuildVersion"
-  # is-major-version-greater-than-3 && BUILD_VERSION_PATH="er/szBuildVersion" || BUILD_VERSION_PATH="g2/g2BuildVersion"
+  is-major-version-greater-than-3 && BUILD_VERSION_PATH="er/szBuildVersion" || BUILD_VERSION_PATH="g2/g2BuildVersion"
   if [ ! -f /opt/senzing/"$BUILD_VERSION_PATH".json ]; then
     echo "[ERROR] /opt/senzing/$BUILD_VERSION_PATH.json not found."
     exit 1
   else
+    echo "[INFO] cat /opt/senzing/$BUILD_VERSION_PATH.json"
     cat /opt/senzing/"$BUILD_VERSION_PATH".json
   fi
 

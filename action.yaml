@@ -12,7 +12,7 @@ runs:
   steps:
     - if: runner.os == 'Linux'
       name: Run on Linux
-      uses: senzing-factory/github-action-install-senzing-api/linux@v3
+      uses: senzing-factory/github-action-install-senzing-api/linux@69-skern
       with:
         senzingapi-runtime-version: ${{ inputs.senzingapi-runtime-version }}
 

@@ -61,24 +61,6 @@ configure-vars() {
 }
 
 ############################################
-# is-major-version-greater-than-3
-# GLOBALS:
-#   MAJOR_VERSION
-#     set prior to this call via either
-#     get-generic-major-version or
-#     get-semantic-major-version
-############################################
-is-major-version-greater-than-3() {
-
-  if [[ $MAJOR_VERSION -gt 3 ]]; then
-    return 0
-  else
-    return 1
-  fi
-
-}
-
-############################################
 # get-generic-major-version
 # GLOBALS:
 #   SENZING_INSTALL_VERSION
@@ -106,6 +88,24 @@ get-semantic-major-version(){
   MAJOR_VERSION=${SENZING_INSTALL_VERSION%%.*}
   echo "[INFO] major version is: $MAJOR_VERSION"
   export MAJOR_VERSION
+
+}
+
+############################################
+# is-major-version-greater-than-3
+# GLOBALS:
+#   MAJOR_VERSION
+#     set prior to this call via either
+#     get-generic-major-version or
+#     get-semantic-major-version
+############################################
+is-major-version-greater-than-3() {
+
+  if [[ $MAJOR_VERSION -gt 3 ]]; then
+    return 0
+  else
+    return 1
+  fi
 
 }
 
@@ -159,6 +159,28 @@ install-senzingapi-runtime() {
 }
 
 ############################################
+# verify-installation
+# GLOBALS:
+#   MAJOR_VERSION
+#     set prior to this call via either
+#     get-generic-major-version or
+#     get-semantic-major-version
+############################################
+verify-installation() {
+
+  echo "[INFO] verify senzing installation"
+  is-major-version-greater-than-3 && BUILD_VERSION_PATH="er/szBuildVersion" || BUILD_VERSION_PATH="g2/g2BuildVersion"
+  if [ ! -f /opt/senzing/"$BUILD_VERSION_PATH".json ]; then
+    echo "[ERROR] /opt/senzing/$BUILD_VERSION_PATH.json not found."
+    exit 1
+  else
+    echo "[INFO] cat /opt/senzing/$BUILD_VERSION_PATH.json"
+    cat /opt/senzing/"$BUILD_VERSION_PATH".json
+  fi
+
+}
+
+############################################
 # Main
 ############################################
 
@@ -166,3 +188,4 @@ echo "[INFO] senzing version to install is: $SENZING_INSTALL_VERSION"
 configure-vars
 install-senzing-repository
 install-senzingapi-runtime
+verify-installation

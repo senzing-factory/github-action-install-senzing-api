@@ -11,29 +11,13 @@ runs:
   using: composite
   steps:
 
-    # Download latest staging or production image.
+    # Install latest staging or production image.
 
     - env:
         SENZING_INSTALL_VERSION: ${{ inputs.senzingapi-version }}
       name: Install Senzing API
       shell: bash
-      run: ${{ github.action_path }}/download-senzing.sh
-
-    # Install Senzing API.
-
-    - name: Install Senzing API
-      shell: bash
-      run: |
-        ls -tlc /tmp/
-        hdiutil attach /tmp/senzingapi.dmg
-        sudo mkdir -p /opt/senzing/
-        sudo cp -R /Volumes/SenzingAPI/senzing/er /opt/senzing
-
-    # Verify installation.
-
-    - name: Verify installed Senzing API version
-      shell: bash
-      run: cat /opt/senzing/er/szBuildVersion.json
+      run: ${{ github.action_path }}/install-senzing.sh
 
 branding:
   icon: download

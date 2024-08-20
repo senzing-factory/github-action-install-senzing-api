@@ -61,24 +61,6 @@ configure-vars() {
 }
 
 ############################################
-# is-major-version-greater-than-3
-# GLOBALS:
-#   MAJOR_VERSION
-#     set prior to this call via either
-#     get-generic-major-version or
-#     get-semantic-major-version
-############################################
-is-major-version-greater-than-3() {
-
-  if [[ $MAJOR_VERSION -gt 3 ]]; then
-    return 0
-  else
-    return 1
-  fi
-
-}
-
-############################################
 # get-generic-major-version
 # GLOBALS:
 #   SENZING_INSTALL_VERSION
@@ -106,6 +88,24 @@ get-semantic-major-version(){
   MAJOR_VERSION=${SENZING_INSTALL_VERSION%%.*}
   echo "[INFO] major version is: $MAJOR_VERSION"
   export MAJOR_VERSION
+
+}
+
+############################################
+# is-major-version-greater-than-3
+# GLOBALS:
+#   MAJOR_VERSION
+#     set prior to this call via either
+#     get-generic-major-version or
+#     get-semantic-major-version
+############################################
+is-major-version-greater-than-3() {
+
+  if [[ $MAJOR_VERSION -gt 3 ]]; then
+    return 0
+  else
+    return 1
+  fi
 
 }
 

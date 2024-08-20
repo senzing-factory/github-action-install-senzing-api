@@ -20,12 +20,6 @@ runs:
       shell: bash
       run: ${{ github.action_path }}/install-senzing.sh
 
-    # Verify installation.
-
-    - name: Verify installed Senzing API Runtime version
-      shell: bash
-      run: cat /opt/senzing/er/szBuildVersion.json
-
 branding:
   icon: download
   color: green

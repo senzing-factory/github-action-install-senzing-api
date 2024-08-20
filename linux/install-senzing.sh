@@ -159,6 +159,26 @@ install-senzingapi-runtime() {
 }
 
 ############################################
+# verify-installation
+# GLOBALS:
+#   SENZING_PACKAGE
+#     full package name used for install
+############################################
+verify-installation() {
+
+  echo "[INFO] verify senzing installation"
+  is-major-version-greater-than-3 && BUILD_VERSION_PATH="g2/g2BuildVersion" || BUILD_VERSION_PATH="er/szBuildVersion"
+  # is-major-version-greater-than-3 && BUILD_VERSION_PATH="er/szBuildVersion" || BUILD_VERSION_PATH="g2/g2BuildVersion"
+  if [ ! -f /opt/senzing/"$BUILD_VERSION_PATH".json ]; then
+    echo "[ERROR] /opt/senzing/$BUILD_VERSION_PATH.json not found."
+    exit 1
+  else
+    cat /opt/senzing/"$BUILD_VERSION_PATH".json
+  fi
+
+}
+
+############################################
 # Main
 ############################################
 
@@ -166,3 +186,4 @@ echo "[INFO] senzing version to install is: $SENZING_INSTALL_VERSION"
 configure-vars
 install-senzing-repository
 install-senzingapi-runtime
+verify-installation

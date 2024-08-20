@@ -161,8 +161,10 @@ install-senzingapi-runtime() {
 ############################################
 # verify-installation
 # GLOBALS:
-#   SENZING_PACKAGE
-#     full package name used for install
+#   MAJOR_VERSION
+#     set prior to this call via either
+#     get-generic-major-version or
+#     get-semantic-major-version
 ############################################
 verify-installation() {
 

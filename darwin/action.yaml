@@ -10,7 +10,6 @@ inputs:
 runs:
   using: composite
   steps:
-
     # Install latest staging or production image.
 
     - env:

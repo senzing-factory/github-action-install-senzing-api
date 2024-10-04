@@ -3,20 +3,23 @@ description: Install Senzing API Runtime on the linux platform.
 author: support@senzing.com
 
 inputs:
-  senzingapi-runtime-version:
-    description: Version of Senzing API Runtime to install
-    required: true
+  packages-to-install:
+    description: Space separated list of Senzing packages to install. Linux only.
+    default: "senzingapi-runtime"
+  senzingapi-version:
+    description: Version of Senzing API to install
+    default: "production-v3"
 
 runs:
   using: composite
   steps:
-
     # Install staging, production or versioned release.
 
     - env:
+        PACKAGES_TO_INSTALL: ${{ inputs.packages-to-install }}
         SENZING_ACCEPT_EULA: I_ACCEPT_THE_SENZING_EULA
-        SENZING_INSTALL_VERSION: ${{ inputs.senzingapi-runtime-version }}
-      name: Install Senzing API Runtime
+        SENZING_INSTALL_VERSION: ${{ inputs.senzingapi-version }}
+      name: Install Senzing API
       shell: bash
       run: ${{ github.action_path }}/install-senzing.sh
 

@@ -11,12 +11,14 @@ set -e
 configure-vars() {
 
   # senzing apt repository packages
+  PROD_REPO=https://senzing-production-apt.s3.amazonaws.com
+  STAGING_REPO=https://senzing-staging-apt.s3.amazonaws.com
   # v3 and lower
-  PROD_REPO_V3_AND_LOWER=https://senzing-production-apt.s3.amazonaws.com/senzingrepo_1.0.1-1_all.deb
-  STAGING_REPO_V3_AND_LOWER=https://senzing-staging-apt.s3.amazonaws.com/senzingstagingrepo_1.0.1-1_all.deb
+  PROD_REPO_V3_AND_LOWER="$PROD_REPO/senzingrepo_1.0.1-1_all.deb"
+  STAGING_REPO_V3_AND_LOWER="$STAGING_REPO/senzingstagingrepo_1.0.1-1_all.deb"
   # v4 and above
-  PROD_REPO_V4_AND_ABOVE=https://senzing-production-apt.s3.amazonaws.com/senzingrepo_2.0.0-1_all.deb
-  STAGING_REPO_V4_AND_ABOVE=https://senzing-staging-apt.s3.amazonaws.com/senzingstagingrepo_2.0.0-1_all.deb
+  PROD_REPO_V4_AND_ABOVE="$PROD_REPO/senzingrepo_2.0.0-1_all.deb"
+  STAGING_REPO_V4_AND_ABOVE="$STAGING_REPO/senzingstagingrepo_2.0.0-1_all.deb"
 
   # semantic versions
   REGEX_SEM_VER="^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
@@ -25,36 +27,54 @@ configure-vars() {
 
   if [[ $SENZING_INSTALL_VERSION =~ "production" ]]; then
 
-    echo "[INFO] install senzingapi-runtime from production"
+    echo "[INFO] install $PACKAGES_TO_INSTALL from production"
     get-generic-major-version
     is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
-    SENZING_PACKAGE="senzingapi-runtime"
+    SENZING_PACKAGES="$PACKAGES_TO_INSTALL"
     restrict-major-version
 
   elif [[ $SENZING_INSTALL_VERSION =~ "staging" ]]; then
 
-    echo "[INFO] install senzingapi-runtime from staging"
+    echo "[INFO] install $PACKAGES_TO_INSTALL from staging"
     get-generic-major-version
     is-major-version-greater-than-3 && INSTALL_REPO="$STAGING_REPO_V4_AND_ABOVE" || INSTALL_REPO="$STAGING_REPO_V3_AND_LOWER"
-    SENZING_PACKAGE="senzingapi-runtime"
+    SENZING_PACKAGES="$PACKAGES_TO_INSTALL"
     restrict-major-version
 
   elif [[ $SENZING_INSTALL_VERSION =~ $REGEX_SEM_VER ]]; then
   
-    echo "[INFO] install senzingapi-runtime semantic version"
+    echo "[INFO] install $PACKAGES_TO_INSTALL semantic version"
     get-semantic-major-version
     is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
-    SENZING_PACKAGE="senzingapi-runtime=$SENZING_INSTALL_VERSION*"
+    IFS=" " read -r -a packages <<< "$PACKAGES_TO_INSTALL"
+    for package in "${packages[@]}"
+    do
+      if [[ ! $package == *"senzingdata-v"* ]]; then
+        updated_packages+="$package=$SENZING_INSTALL_VERSION* "
+      else
+        updated_packages+="$package "
+      fi
+    done
+    SENZING_PACKAGES="$updated_packages"
 
   elif [[ $SENZING_INSTALL_VERSION =~ $REGEX_SEM_VER_BUILD_NUM ]]; then
 
-    echo "[INFO] install senzingapi-runtime semantic version with build number"
+    echo "[INFO] install $PACKAGES_TO_INSTALL semantic version with build number"
     get-semantic-major-version
     is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
-    SENZING_PACKAGE="senzingapi-runtime=$SENZING_INSTALL_VERSION"
+    IFS=" " read -r -a packages <<< "$PACKAGES_TO_INSTALL"
+    for package in "${packages[@]}"
+    do
+      if [[ ! $package == *"senzingdata-v"* ]]; then
+        updated_packages+="$package=$SENZING_INSTALL_VERSION "
+      else
+        updated_packages+="$package "
+      fi
+    done
+    SENZING_PACKAGES="$updated_packages"
 
   else
-    echo "[ERROR] senzingapi-runtime install version $SENZING_INSTALL_VERSION is unsupported"
+    echo "[ERROR] $PACKAGES_TO_INSTALL install version $SENZING_INSTALL_VERSION is unsupported"
     exit 1
   fi
 
@@ -148,13 +168,16 @@ install-senzing-repository() {
 ############################################
 # install-senzingapi
 # GLOBALS:
-#   SENZING_PACKAGE
+#   SENZING_PACKAGES
 #     full package name used for install
 ############################################
 install-senzingapi-runtime() {
-
-  echo "[INFO] sudo --preserve-env apt-get -y install $SENZING_PACKAGE"
-  sudo --preserve-env apt-get -y install "$SENZING_PACKAGE"
+  
+  echo "[INFO] sudo apt list | grep senzing"
+  sudo apt list | grep senzing
+  echo "[INFO] sudo --preserve-env apt-get -y install $SENZING_PACKAGES"
+  # shellcheck disable=SC2086
+  sudo --preserve-env apt-get -y install $SENZING_PACKAGES
 
 }
 
@@ -167,6 +190,9 @@ install-senzingapi-runtime() {
 #     get-semantic-major-version
 ############################################
 verify-installation() {
+
+  echo "[INFO] sudo apt list --installed | grep senzing"
+  sudo apt list --installed | grep senzing
 
   echo "[INFO] verify senzing installation"
   is-major-version-greater-than-3 && BUILD_VERSION_PATH="er/szBuildVersion" || BUILD_VERSION_PATH="g2/g2BuildVersion"

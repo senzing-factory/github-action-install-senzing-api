@@ -18,7 +18,7 @@ runs:
       uses: senzing-factory/github-action-install-senzing-api/linux@65-skern
       with:
         senzingapi-version: ${{ inputs.senzingapi-version }}
-        packages-to-install: ${{ inputs.package(s)-to-install }}
+        packages-to-install: ${{ inputs.packages-to-install }}
 
     - if: runner.os == 'macOS'
       name: Run on macOS

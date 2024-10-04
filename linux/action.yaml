@@ -17,7 +17,7 @@ runs:
     # Install staging, production or versioned release.
 
     - env:
-        PACKAGES_TO_INSTALL: ${{ inputs.package(s)-to-install }}
+        PACKAGES_TO_INSTALL: ${{ inputs.packages-to-install }}
         SENZING_ACCEPT_EULA: I_ACCEPT_THE_SENZING_EULA
         SENZING_INSTALL_VERSION: ${{ inputs.senzingapi-version }}
       name: Install Senzing API

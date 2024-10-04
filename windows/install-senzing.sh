@@ -94,12 +94,11 @@ download-zip() {
 
 
 ############################################
-# install-senzing
+# install-senzingapi
 ############################################
-install-senzing() {
+install-senzingapi() {
 
   7z x -y -o"C:\Program Files" senzingapi.zip 
-  mv "C:\Program Files\senzing" "C:\Program Files\Senzing"
 
 }
 
@@ -113,14 +112,14 @@ install-senzing() {
 ############################################
 verify-installation() {
 
-  echo "[INFO] verify senzing installation"
+  echo "[INFO] verify senzingapi installation"
   is-major-version-greater-than-3 && BUILD_VERSION_PATH="er/szBuildVersion" || BUILD_VERSION_PATH="g2/g2BuildVersion"
-  if [ ! -f "/c/Program Files/senzing/$BUILD_VERSION_PATH.json" ]; then
-    echo "[ERROR] /c/Program Files/senzing/$BUILD_VERSION_PATH.json not found."
+  if [ ! -f "/c/Program Files/Senzing/$BUILD_VERSION_PATH.json" ]; then
+    echo "[ERROR] /c/Program Files/Senzing/$BUILD_VERSION_PATH.json not found."
     exit 1
   else
-    echo "[INFO] cat /c/Program Files/senzing/$BUILD_VERSION_PATH.json"
-    cat "/c/Program Files/senzing/$BUILD_VERSION_PATH.json"
+    echo "[INFO] cat /c/Program Files/Senzing/$BUILD_VERSION_PATH.json"
+    cat "/c/Program Files/Senzing/$BUILD_VERSION_PATH.json"
   fi
 
 }
@@ -129,9 +128,9 @@ verify-installation() {
 # Main
 ############################################
 
-echo "[INFO] senzing version to install is: $SENZING_INSTALL_VERSION"
+echo "[INFO] senzingapi version to install is: $SENZING_INSTALL_VERSION"
 configure-vars
 determine-latest-zip-for-major-version
 download-zip
-install-senzing
+install-senzingapi
 verify-installation

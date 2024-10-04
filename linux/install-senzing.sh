@@ -167,8 +167,8 @@ install-senzingapi-runtime() {
   
   echo "[INFO] sudo apt list | grep senzing"
   sudo apt list | grep senzing
-  echo "[INFO] sudo --preserve-env apt -y install $SENZING_PACKAGES"
-  sudo --preserve-env apt -y install $SENZING_PACKAGES
+  echo "[INFO] sudo --preserve-env apt-get -y install $SENZING_PACKAGES"
+  sudo --preserve-env apt-get -y install $SENZING_PACKAGES
 
 }
 
@@ -181,6 +181,9 @@ install-senzingapi-runtime() {
 #     get-semantic-major-version
 ############################################
 verify-installation() {
+
+  echo "[INFO] sudo apt list --installed | grep senzing"
+  sudo apt list --installed | grep senzing
 
   echo "[INFO] verify senzing installation"
   is-major-version-greater-than-3 && BUILD_VERSION_PATH="er/szBuildVersion" || BUILD_VERSION_PATH="g2/g2BuildVersion"

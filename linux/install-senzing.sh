@@ -49,7 +49,11 @@ configure-vars() {
     packages=($PACKAGES_TO_INSTALL)
     for package in "${packages[@]}"
     do
-      updated_packages+="$package=$SENZING_INSTALL_VERSION* "
+      if [[ ! $package ~= *"senzingdata-v"* ]]; then
+        updated_packages+="$package=$SENZING_INSTALL_VERSION* "
+      else
+        updated_packages+="$package "
+      fi
     done
     SENZING_PACKAGES="$updated_packages"
 
@@ -61,7 +65,11 @@ configure-vars() {
     packages=($PACKAGES_TO_INSTALL)
     for package in "${packages[@]}"
     do
-      updated_packages+="$package=$SENZING_INSTALL_VERSION "
+      if [[ ! $package ~= *"senzingdata-v"* ]]; then
+        updated_packages+="$package=$SENZING_INSTALL_VERSION "
+      else
+        updated_packages+="$package "
+      fi
     done
     SENZING_PACKAGES="$updated_packages"
 

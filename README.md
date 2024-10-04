@@ -67,7 +67,7 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
           - name: Install Senzing API
             uses: senzing-factory/github-action-install-senzing-api@v4
             with:
-              package(s)-to-install: "senzingapi-runtime senzingapi-setup"
+              packages-to-install: "senzingapi-runtime senzingapi-setup"
               senzingapi-version: 3.12.0
     ```
 

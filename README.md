@@ -28,13 +28,13 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
         runs-on: ubuntu-latest
         steps:
           - name: Install Senzing API
-            uses: senzing-factory/github-action-install-senzing-api@v2
+            uses: senzing-factory/github-action-install-senzing-api@v3
             with:
               senzingapi-version: production-v3
     ```
 
 1. An example `.github/workflows/install-senzing-example.yaml` file
-   which installs a specific Senzing API verson:
+   which installs a specific Senzing API version:
 
     ```yaml
     name: install senzing example
@@ -46,10 +46,46 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
         runs-on: ubuntu-latest
         steps:
           - name: Install Senzing API
-            uses: senzing-factory/github-action-install-senzing-api@v2
+            uses: senzing-factory/github-action-install-senzing-api@v3
             with:
               senzingapi-version: 3.6.0-23160
     ```
+
+1. An example `.github/workflows/install-senzing-example.yaml` file
+   which installs senzingapi-runtime and senzingapi-setup with a 
+   specific Senzing API semantic version:
+
+    ```yaml
+    name: install senzing example
+
+    on: [push]
+
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Install Senzing API
+            uses: senzing-factory/github-action-install-senzing-api@v3
+            with:
+              package(s)-to-install: "senzingapi-runtime senzingapi-setup"
+              senzingapi-version: 3.12.0
+    ```
+
+### package(s)-to-install
+
+`package(s)-to-install` values can include the following:
+
+- Version <= 3.X:
+  - `senzingapi`
+  - `senzingapi-runtime`
+  - `senzingapi-setup`
+  - `senzingapi-tools`
+  - `senzingdata-v<X>`
+- Version >= 4.0:
+  - `senzingapi-poc`
+  - `senzingapi-runtime`
+  - `senzingapi-setup`
+  - `senzingapi-tools`
 
 ### senzingapi-version
 

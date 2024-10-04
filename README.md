@@ -28,7 +28,7 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
         runs-on: ubuntu-latest
         steps:
           - name: Install Senzing API
-            uses: senzing-factory/github-action-install-senzing-api@v3
+            uses: senzing-factory/github-action-install-senzing-api@v4
             with:
               senzingapi-version: production-v3
     ```
@@ -46,7 +46,7 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
         runs-on: ubuntu-latest
         steps:
           - name: Install Senzing API
-            uses: senzing-factory/github-action-install-senzing-api@v3
+            uses: senzing-factory/github-action-install-senzing-api@v4
             with:
               senzingapi-version: 3.6.0-23160
     ```
@@ -65,7 +65,7 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
         runs-on: ubuntu-latest
         steps:
           - name: Install Senzing API
-            uses: senzing-factory/github-action-install-senzing-api@v3
+            uses: senzing-factory/github-action-install-senzing-api@v4
             with:
               package(s)-to-install: "senzingapi-runtime senzingapi-setup"
               senzingapi-version: 3.12.0

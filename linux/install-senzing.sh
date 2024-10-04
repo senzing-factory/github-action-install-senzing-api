@@ -46,10 +46,10 @@ configure-vars() {
     echo "[INFO] install $PACKAGES_TO_INSTALL semantic version"
     get-semantic-major-version
     is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
-    packages=($PACKAGES_TO_INSTALL)
+    IFS=" " read -r -a packages <<< "$PACKAGES_TO_INSTALL"
     for package in "${packages[@]}"
     do
-      if [[ ! $package ~= *"senzingdata-v"* ]]; then
+      if [[ ! $package == *"senzingdata-v"* ]]; then
         updated_packages+="$package=$SENZING_INSTALL_VERSION* "
       else
         updated_packages+="$package "
@@ -62,10 +62,10 @@ configure-vars() {
     echo "[INFO] install $PACKAGES_TO_INSTALL semantic version with build number"
     get-semantic-major-version
     is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
-    packages=($PACKAGES_TO_INSTALL)
+    IFS=" " read -r -a packages <<< "$PACKAGES_TO_INSTALL"
     for package in "${packages[@]}"
     do
-      if [[ ! $package ~= *"senzingdata-v"* ]]; then
+      if [[ ! $package == *"senzingdata-v"* ]]; then
         updated_packages+="$package=$SENZING_INSTALL_VERSION "
       else
         updated_packages+="$package "
@@ -176,6 +176,7 @@ install-senzingapi-runtime() {
   echo "[INFO] sudo apt list | grep senzing"
   sudo apt list | grep senzing
   echo "[INFO] sudo --preserve-env apt-get -y install $SENZING_PACKAGES"
+  # shellcheck disable=SC2086
   sudo --preserve-env apt-get -y install $SENZING_PACKAGES
 
 }

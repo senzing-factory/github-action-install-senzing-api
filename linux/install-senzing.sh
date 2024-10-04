@@ -164,7 +164,9 @@ install-senzing-repository() {
 #     full package name used for install
 ############################################
 install-senzingapi-runtime() {
-
+  
+  echo "[INFO] sudo apt list | grep senzing"
+  sudo apt list | grep senzing
   echo "[INFO] sudo --preserve-env apt-get -y install $SENZING_PACKAGES"
   sudo --preserve-env apt-get -y install "$SENZING_PACKAGES"
 

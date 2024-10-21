@@ -148,7 +148,7 @@ restrict-major-version() {
   get-generic-major-version
   senzing_packages=$(apt list | grep senzing | cut -d '/' -f 1 | grep -v "data" | grep -v "staging")
   echo "[INFO] senzing packages: $senzing_packages"
-  IFS=" " read -r -a packages <<< "$senzing_packages"
+  IFS=$'\n' read -r -a packages <<< "$senzing_packages"
     for package in "${packages[@]}"
     do
       preferences_file="/etc/apt/preferences.d/$package"

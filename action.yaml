@@ -1,5 +1,5 @@
-name: Install Senzing API Runtime
-description: Install Senzing API Runtime based on platform.
+name: Install Senzing API
+description: Install Senzing API based on platform.
 author: support@senzing.com
 
 inputs:

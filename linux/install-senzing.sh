@@ -40,7 +40,6 @@ configure-vars() {
     get-generic-major-version
     is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
     SENZING_PACKAGES="$PACKAGES_TO_INSTALL"
-    restrict-major-version
 
   elif [[ $SENZING_INSTALL_VERSION =~ "staging" ]]; then
 
@@ -48,7 +47,6 @@ configure-vars() {
     get-generic-major-version
     is-major-version-greater-than-3 && INSTALL_REPO="$STAGING_REPO_V4_AND_ABOVE" || INSTALL_REPO="$STAGING_REPO_V3_AND_LOWER"
     SENZING_PACKAGES="$PACKAGES_TO_INSTALL"
-    restrict-major-version
 
   elif [[ $SENZING_INSTALL_VERSION =~ $REGEX_SEM_VER ]]; then
   
@@ -148,11 +146,12 @@ is-major-version-greater-than-3() {
 restrict-major-version() {
 
   get-generic-major-version
-  IFS=" " read -r -a packages <<< "$PACKAGES_TO_INSTALL"
+  senzing_packages=$(apt list | grep senzing | cut -d '/' -f 1 | grep -v "data" | grep -v "staging")
+  IFS=" " read -r -a packages <<< "$senzing_packages"
     for package in "${packages[@]}"
     do
       preferences_file="/etc/apt/preferences.d/$package"
-      echo "[INFO] restrict senzingapi-runtime major version to: $MAJOR_VERSION"
+      echo "[INFO] restrict $package major version to: $MAJOR_VERSION"
 
       echo "Package: $package" | sudo tee -a "$preferences_file"
       echo "Pin: version $MAJOR_VERSION.*" | sudo tee -a "$preferences_file"
@@ -187,6 +186,7 @@ install-senzing-repository() {
 ############################################
 install-senzingapi() {
   
+  restrict-major-version
   echo "[INFO] sudo apt list | grep senzing"
   sudo apt list | grep senzing
   echo "[INFO] sudo --preserve-env apt-get -y install $SENZING_PACKAGES"

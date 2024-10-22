@@ -138,14 +138,19 @@ is-major-version-greater-than-3() {
 
 ############################################
 # restrict-major-version
+#
+# restrict the major version for all found
+# senzing packages to avoid dependency
+# conflicts
+#
 # GLOBALS:
-#   SENZING_INSTALL_VERSION
-#     one of: production-v<X>, staging-v<X>
-#     semver does not apply here
+#   MAJOR_VERSION
+#     set prior to this call via either
+#     get-generic-major-version or
+#     get-semantic-major-version
 ############################################
 restrict-major-version() {
 
-  get-generic-major-version
   senzing_packages=$(apt list | grep senzing | cut -d '/' -f 1 | grep -v "data" | grep -v "staging")
   echo "[INFO] senzing packages: $senzing_packages"
 

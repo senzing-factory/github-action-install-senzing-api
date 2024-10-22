@@ -154,9 +154,9 @@ restrict-major-version() {
     preferences_file="/etc/apt/preferences.d/$package"
     echo "[INFO] restrict $package major version to: $MAJOR_VERSION"
 
-    echo "Package: $package" | tee -a "$preferences_file"
-    echo "Pin: version $MAJOR_VERSION.*" | tee -a "$preferences_file"
-    echo "Pin-Priority: 999" | tee -a "$preferences_file"
+    echo "Package: $package" | sudo tee -a "$preferences_file"
+    echo "Pin: version $MAJOR_VERSION.*" | sudo tee -a "$preferences_file"
+    echo "Pin-Priority: 999" | sudo tee -a "$preferences_file"
   done
 
   echo "[INFO] sudo apt update"

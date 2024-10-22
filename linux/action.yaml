@@ -14,7 +14,6 @@ runs:
   using: composite
   steps:
     # Install staging, production or versioned release.
-
     - env:
         PACKAGES_TO_INSTALL: ${{ inputs.packages-to-install }}
         SENZING_ACCEPT_EULA: I_ACCEPT_THE_SENZING_EULA

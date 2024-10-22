@@ -148,16 +148,17 @@ restrict-major-version() {
   get-generic-major-version
   senzing_packages=$(apt list | grep senzing | cut -d '/' -f 1 | grep -v "data" | grep -v "staging")
   echo "[INFO] senzing packages: $senzing_packages"
-  IFS=$'\n' read -r -a packages <<< "$senzing_packages"
-    for package in "${packages[@]}"
-    do
-      preferences_file="/etc/apt/preferences.d/$package"
-      echo "[INFO] restrict $package major version to: $MAJOR_VERSION"
 
-      echo "Package: $package" | sudo tee -a "$preferences_file"
-      echo "Pin: version $MAJOR_VERSION.*" | sudo tee -a "$preferences_file"
-      echo "Pin-Priority: 999" | sudo tee -a "$preferences_file"
-    done
+  for package in $senzing_packages
+  do
+    preferences_file="/etc/apt/preferences.d/$package"
+    echo "[INFO] restrict $package major version to: $MAJOR_VERSION"
+
+    echo "Package: $package" | tee -a "$preferences_file"
+    echo "Pin: version $MAJOR_VERSION.*" | tee -a "$preferences_file"
+    echo "Pin-Priority: 999" | tee -a "$preferences_file"
+  done
+
   echo "[INFO] sudo apt update"
   sudo apt update
 

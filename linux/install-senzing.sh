@@ -18,9 +18,9 @@ configure-vars() {
   PROD_REPO_V3_AND_LOWER="$PROD_REPO/senzingrepo_1.0.1-1_all.deb"
   STAGING_REPO_V3_AND_LOWER="$STAGING_REPO/senzingstagingrepo_1.0.1-1_all.deb"
   # v4 and above
-  BETA_REPO_V4_AND_ABOVE="$BETA_REPO/senzingbetarepo_2.0.0-1_all.deb"
-  PROD_REPO_V4_AND_ABOVE="$PROD_REPO/senzingrepo_2.0.0-1_all.deb"
-  STAGING_REPO_V4_AND_ABOVE="$STAGING_REPO/senzingstagingrepo_2.0.0-1_all.deb"
+  BETA_REPO_V4_AND_ABOVE="$BETA_REPO/senzingbetarepo_2.0.1-1_all.deb"
+  PROD_REPO_V4_AND_ABOVE="$PROD_REPO/senzingrepo_2.0.1-1_all.deb"
+  STAGING_REPO_V4_AND_ABOVE="$STAGING_REPO/senzingstagingrepo_2.0.1-1_all.deb"
 
   # semantic versions
   REGEX_SEM_VER="^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"

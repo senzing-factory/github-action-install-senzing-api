@@ -1,1 +1,1 @@
-# github-action-install-senzing examples
+# github-action-install-senzing-api examples

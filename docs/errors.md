@@ -1,1 +1,1 @@
-# github-action-install-senzing errors
+# github-action-install-senzing-api errors

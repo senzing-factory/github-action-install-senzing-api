@@ -1,5 +1,5 @@
-name: Install Senzing API Runtime - linux
-description: Install Senzing API Runtime on the linux platform.
+name: Install Senzing API - linux
+description: Install Senzing API on the linux platform.
 author: support@senzing.com
 
 inputs:

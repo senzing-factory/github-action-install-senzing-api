@@ -1,5 +1,5 @@
 # windows/action.yaml
-name: Install Senzing - windows
+name: Install Senzing API - windows
 description: Install Senzing API on the windows platform.
 author: support@senzing.com
 

@@ -53,9 +53,10 @@ get-generic-major-version(){
 is-major-version-greater-than-3() {
 
   if [[ $MAJOR_VERSION -gt 3 ]]; then
-    return 0
-  else
-    return 1
+    echo "[ERROR] this action only supports senzing major versions 3 and lower"
+    echo "[ERROR] please refer to https://github.com/senzing-factory/github-action-install-senzing-sdk"
+    echo "[ERROR] for installing senzing versions 4 and above"
+    exit 1
   fi
 
 }
@@ -70,6 +71,7 @@ is-major-version-greater-than-3() {
 determine-latest-dmg-for-major-version() {
 
   get-generic-major-version
+  is-major-version-greater-than-3
 
   aws s3 ls $SENZINGAPI_URI --recursive --no-sign-request | grep -o -E '[^ ]+.dmg$' > /tmp/staging-versions
   latest_staging_version=$(< /tmp/staging-versions grep "_$MAJOR_VERSION" | sort -r | head -n 1 | grep -o '/.*')
@@ -105,8 +107,7 @@ install-senzing() {
   ls -tlc /tmp/
   hdiutil attach /tmp/senzingapi.dmg
   sudo mkdir -p /opt/senzing/
-  is-major-version-greater-than-3 && SENZING_PATH="er" || SENZING_PATH="g2"
-  sudo cp -R /Volumes/SenzingAPI/senzing/"$SENZING_PATH" /opt/senzing
+  sudo cp -R /Volumes/SenzingAPI/senzing/g2 /opt/senzing
 
 }
 
@@ -121,13 +122,12 @@ install-senzing() {
 verify-installation() {
 
   echo "[INFO] verify senzing installation"
-  is-major-version-greater-than-3 && BUILD_VERSION_PATH="er/szBuildVersion" || BUILD_VERSION_PATH="g2/g2BuildVersion"
-  if [ ! -f /opt/senzing/"$BUILD_VERSION_PATH".json ]; then
-    echo "[ERROR] /opt/senzing/$BUILD_VERSION_PATH.json not found."
+  if [ ! -f /opt/senzing/g2/g2BuildVersion.json ]; then
+    echo "[ERROR] /opt/senzing/g2/g2BuildVersion.json not found."
     exit 1
   else
-    echo "[INFO] cat /opt/senzing/$BUILD_VERSION_PATH.json"
-    cat /opt/senzing/"$BUILD_VERSION_PATH".json
+    echo "[INFO] cat /opt/senzing/g2/g2BuildVersion.json"
+    cat /opt/senzing/g2/g2BuildVersion.json
   fi
 
 }

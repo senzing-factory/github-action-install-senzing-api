@@ -1,1 +1,1 @@
-# github-action-install-senzing development
+# github-action-install-senzing-api development

@@ -2,15 +2,12 @@
 
 ## Synopsis
 
-A GitHub Action for installing the Senzing API.
+A GitHub Action for installing the Senzing API **_V3 or lower_**.
 
 ## Overview
 
-The GitHub Action performs a
-[system install]
-of the Senzing API.
-The GitHub Action works where the
-[RUNNER_OS]
+The GitHub Action performs a [system install] of the Senzing API.
+The GitHub Action works where the [RUNNER_OS]
 GitHub variable is `Linux`, `macOS`, or `Windows`.
 
 ## Usage
@@ -28,7 +25,7 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
        runs-on: ubuntu-latest
        steps:
          - name: Install Senzing API
-           uses: senzing-factory/github-action-install-senzing-api@v4
+           uses: senzing-factory/github-action-install-senzing-api@v5
            with:
              senzingapi-version: production-v3
    ```
@@ -46,7 +43,7 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
        runs-on: ubuntu-latest
        steps:
          - name: Install Senzing API
-           uses: senzing-factory/github-action-install-senzing-api@v4
+           uses: senzing-factory/github-action-install-senzing-api@v5
            with:
              senzingapi-version: 3.6.0-23160
    ```
@@ -65,7 +62,7 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
        runs-on: ubuntu-latest
        steps:
          - name: Install Senzing API
-           uses: senzing-factory/github-action-install-senzing-api@v4
+           uses: senzing-factory/github-action-install-senzing-api@v5
            with:
              packages-to-install: "senzingapi-runtime senzingapi-setup"
              senzingapi-version: 3.12.0
@@ -81,11 +78,6 @@ GitHub variable is `Linux`, `macOS`, or `Windows`.
   - `senzingapi-setup`
   - `senzingapi-tools`
   - `senzingdata-v<X>`
-- Version >= 4.0:
-  - `senzingapi-poc`
-  - `senzingapi-runtime`
-  - `senzingapi-setup`
-  - `senzingapi-tools`
 
 ### senzingapi-version
 

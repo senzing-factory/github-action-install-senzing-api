@@ -15,20 +15,20 @@ runs:
   steps:
     - if: runner.os == 'Linux'
       name: Run on Linux
-      uses: senzing-factory/github-action-install-senzing-api/linux@v5
+      uses: senzing-factory/github-action-install-senzing-api/linux@80-skern
       with:
         senzingapi-version: ${{ inputs.senzingapi-version }}
         packages-to-install: ${{ inputs.packages-to-install }}
 
     - if: runner.os == 'macOS'
       name: Run on macOS
-      uses: senzing-factory/github-action-install-senzing-api/darwin@v5
+      uses: senzing-factory/github-action-install-senzing-api/darwin@80-skern
       with:
         senzingapi-version: ${{ inputs.senzingapi-version }}
 
     - if: runner.os == 'Windows'
       name: Run on Windows
-      uses: senzing-factory/github-action-install-senzing-api/windows@v5
+      uses: senzing-factory/github-action-install-senzing-api/windows@80-skern
       with:
         senzingapi-version: ${{ inputs.senzingapi-version }}
 

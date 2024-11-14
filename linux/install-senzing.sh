@@ -11,48 +11,38 @@ set -e
 configure-vars() {
 
   # senzing apt repository packages
-  BETA_REPO=https://senzing-beta-apt.s3.amazonaws.com
   PROD_REPO=https://senzing-production-apt.s3.amazonaws.com
   STAGING_REPO=https://senzing-staging-apt.s3.amazonaws.com
-  # v3 and lower
   PROD_REPO_V3_AND_LOWER="$PROD_REPO/senzingrepo_1.0.1-1_all.deb"
   STAGING_REPO_V3_AND_LOWER="$STAGING_REPO/senzingstagingrepo_1.0.1-1_all.deb"
-  # v4 and above
-  BETA_REPO_V4_AND_ABOVE="$BETA_REPO/senzingbetarepo_2.0.1-1_all.deb"
-  PROD_REPO_V4_AND_ABOVE="$PROD_REPO/senzingrepo_2.0.1-1_all.deb"
-  STAGING_REPO_V4_AND_ABOVE="$STAGING_REPO/senzingstagingrepo_2.0.1-1_all.deb"
 
   # semantic versions
   REGEX_SEM_VER="^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
   # semantic version with build number
   REGEX_SEM_VER_BUILD_NUM="^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)-([0-9]){5}$"
 
-  if [[ $SENZING_INSTALL_VERSION =~ "beta" ]]; then
-
-    echo "[INFO] install $PACKAGES_TO_INSTALL from beta"
-    get-generic-major-version
-    INSTALL_REPO="$BETA_REPO_V4_AND_ABOVE"
-    SENZING_PACKAGES="$PACKAGES_TO_INSTALL"
-
-  elif [[ $SENZING_INSTALL_VERSION =~ "production" ]]; then
+  if [[ $SENZING_INSTALL_VERSION =~ "production" ]]; then
 
     echo "[INFO] install $PACKAGES_TO_INSTALL from production"
     get-generic-major-version
-    is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
+    is-major-version-greater-than-3
+    INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
     SENZING_PACKAGES="$PACKAGES_TO_INSTALL"
 
   elif [[ $SENZING_INSTALL_VERSION =~ "staging" ]]; then
 
     echo "[INFO] install $PACKAGES_TO_INSTALL from staging"
     get-generic-major-version
-    is-major-version-greater-than-3 && INSTALL_REPO="$STAGING_REPO_V4_AND_ABOVE" || INSTALL_REPO="$STAGING_REPO_V3_AND_LOWER"
+    is-major-version-greater-than-3
+    INSTALL_REPO="$STAGING_REPO_V3_AND_LOWER"
     SENZING_PACKAGES="$PACKAGES_TO_INSTALL"
 
   elif [[ $SENZING_INSTALL_VERSION =~ $REGEX_SEM_VER ]]; then
   
     echo "[INFO] install $PACKAGES_TO_INSTALL semantic version"
     get-semantic-major-version
-    is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
+    is-major-version-greater-than-3
+    INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
     IFS=" " read -r -a packages <<< "$PACKAGES_TO_INSTALL"
     for package in "${packages[@]}"
     do
@@ -68,7 +58,8 @@ configure-vars() {
 
     echo "[INFO] install $PACKAGES_TO_INSTALL semantic version with build number"
     get-semantic-major-version
-    is-major-version-greater-than-3 && INSTALL_REPO="$PROD_REPO_V4_AND_ABOVE" || INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
+    is-major-version-greater-than-3
+    INSTALL_REPO="$PROD_REPO_V3_AND_LOWER"
     IFS=" " read -r -a packages <<< "$PACKAGES_TO_INSTALL"
     for package in "${packages[@]}"
     do
@@ -129,9 +120,10 @@ get-semantic-major-version(){
 is-major-version-greater-than-3() {
 
   if [[ $MAJOR_VERSION -gt 3 ]]; then
-    return 0
-  else
-    return 1
+    echo "[ERROR] this action only supports senzing major versions 3 and lower"
+    echo "[ERROR] please refer to https://github.com/senzing-factory/github-action-install-senzing-sdk"
+    echo "[ERROR] for installing senzing versions 4 and above"
+    exit 1
   fi
 
 }
@@ -218,13 +210,12 @@ verify-installation() {
   sudo apt list --installed | grep senzing
 
   echo "[INFO] verify senzing installation"
-  is-major-version-greater-than-3 && BUILD_VERSION_PATH="er/szBuildVersion" || BUILD_VERSION_PATH="g2/g2BuildVersion"
-  if [ ! -f "/opt/senzing/$BUILD_VERSION_PATH.json" ]; then
-    echo "[ERROR] /opt/senzing/$BUILD_VERSION_PATH.json not found."
+  if [ ! -f "/opt/senzing/g2/g2BuildVersion.json" ]; then
+    echo "[ERROR] /opt/senzing/g2/g2BuildVersion.json not found."
     exit 1
   else
-    echo "[INFO] cat /opt/senzing/$BUILD_VERSION_PATH.json"
-    cat /opt/senzing/"$BUILD_VERSION_PATH".json
+    echo "[INFO] cat /opt/senzing/g2/g2BuildVersion.json"
+    cat /opt/senzing/g2/g2BuildVersion.json
   fi
 
 }

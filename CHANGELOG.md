@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning].
 
 -
 
+## [5.0.0] - 2024-11-12
+
+### Changed in 5.0.0
+
+- Restrict this action to Senzing API installs V3 and lower.
+
 ## [3.0.2] - 2024-08-20
 
 ### Changed in 3.0.2

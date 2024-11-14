@@ -53,9 +53,10 @@ get-generic-major-version(){
 is-major-version-greater-than-3() {
 
   if [[ $MAJOR_VERSION -gt 3 ]]; then
-    return 0
-  else
-    return 1
+    echo "[ERROR] this action only supports senzing major versions 3 and lower"
+    echo "[ERROR] please refer to https://github.com/senzing-factory/github-action-install-senzing-sdk"
+    echo "[ERROR] for installing senzing versions 4 and above"
+    exit 1
   fi
 
 }
@@ -70,6 +71,7 @@ is-major-version-greater-than-3() {
 determine-latest-zip-for-major-version() {
 
   get-generic-major-version
+  is-major-version-greater-than-3
 
   aws s3 ls $SENZINGAPI_URI --recursive --no-sign-request --region us-east-1 | grep -o -E '[^ ]+.zip$' > /tmp/staging-versions
   latest_staging_version=$(< /tmp/staging-versions grep "_$MAJOR_VERSION" | sort -r | head -n 1 | grep -o '/.*')
@@ -113,13 +115,12 @@ install-senzingapi() {
 verify-installation() {
 
   echo "[INFO] verify senzingapi installation"
-  is-major-version-greater-than-3 && BUILD_VERSION_PATH="er/szBuildVersion" || BUILD_VERSION_PATH="g2/g2BuildVersion"
-  if [ ! -f "/c/Program Files/Senzing/$BUILD_VERSION_PATH.json" ]; then
-    echo "[ERROR] /c/Program Files/Senzing/$BUILD_VERSION_PATH.json not found."
+  if [ ! -f "/c/Program Files/Senzing/g2/g2BuildVersion.json" ]; then
+    echo "[ERROR] /c/Program Files/Senzing/g2/g2BuildVersion.json not found."
     exit 1
   else
-    echo "[INFO] cat /c/Program Files/Senzing/$BUILD_VERSION_PATH.json"
-    cat "/c/Program Files/Senzing/$BUILD_VERSION_PATH.json"
+    echo "[INFO] cat /c/Program Files/Senzing/g2/g2BuildVersion.json"
+    cat "/c/Program Files/Senzing/g2/g2BuildVersion.json"
   fi
 
 }

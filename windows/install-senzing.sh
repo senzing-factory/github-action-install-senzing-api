@@ -18,8 +18,8 @@ configure-vars() {
   elif [[ $SENZING_INSTALL_VERSION =~ "staging" ]]; then
 
     echo "[INFO] install senzingapi from staging"
-    SENZINGAPI_URI="s3://public-read-access/staging/"
-    SENZINGAPI_URL="https://public-read-access.s3.amazonaws.com/staging"
+    SENZINGAPI_URI="s3://senzing-staging-win/"
+    SENZINGAPI_URL="https://senzing-staging-win"
 
   else
     echo "[ERROR] senzingapi install version $SENZING_INSTALL_VERSION is unsupported"

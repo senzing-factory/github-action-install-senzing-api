@@ -4,14 +4,17 @@
   "words": [
     "CCLA",
     "CODEOWNER",
-    "dylib",
     "ICLA",
     "Senzing",
+    "dylib",
+    "esbenp",
     "senzingapi",
     "senzingdata",
     "senzingrepo",
     "senzingstagingrepo",
     "stackoverflow"
   ],
-  "ignorePaths": [".git/**"]
+  "ignorePaths": [
+    ".git/**"
+  ]
 }

@@ -4,9 +4,10 @@
   "words": [
     "CCLA",
     "CODEOWNER",
-    "dylib",
     "ICLA",
     "Senzing",
+    "dylib",
+    "esbenp",
     "senzingapi",
     "senzingdata",
     "senzingrepo",
